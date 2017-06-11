@@ -32,7 +32,8 @@ export default ( state = defaultState, action) => {
 				currentUser: action.error ? null : action.payload.user
 			};
 
-
+			case 'DELETE_ARTICLE':
+				return { ...state, redirectTo: '/' };
 	}
 	return state;
 }

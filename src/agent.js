@@ -15,6 +15,8 @@ let tokenPlugin = req => {
 }
 
 const requests = {
+	del: url =>
+		superagent.del(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 	get: url =>
 		superagent.get(`${API_ROOT}${url}`).use(tokenPlugin).then(responseBody),
 	post: (url, body) =>
@@ -25,7 +27,11 @@ const requests = {
 
 const Articles = {
 	all: page =>
-		requests.get('/articles?limit=10')
+		requests.get('/articles?limit=10'),
+	del: slug =>
+		requests.del(`/articles/${slug}`),
+	get: slug =>
+		requests.get(`/articles/${slug}`)
 };
 
 const Auth = {
@@ -39,8 +45,15 @@ const Auth = {
 		requests.put('/user', { user })
 };
 
+const Comments = {
+	forArticle: slug =>
+		requests.get(`/articles/${slug}/comments`)
+};
+
+
 export default { 
 	Articles,
 	Auth,
+	Comments,
 	setToken: _token => { token = _token; } 
 };

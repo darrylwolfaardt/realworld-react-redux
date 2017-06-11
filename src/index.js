@@ -4,6 +4,7 @@ import React from 'react';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 import App from './components/App';
+import Article from './components/Article';
 import Home from './components/Home';
 import Login from './components/Login';
 import Settings from './components/Settings';
@@ -20,6 +21,7 @@ ReactDOM.render((
 					<Route path="login" component={Login} />
 					<Route path="register" component={Register} />
 					<Route path="settings" component={Settings} />
+					<Route path="article/:id" component={Article} />
 			</Route>
 		</Router>
 	</Provider>
