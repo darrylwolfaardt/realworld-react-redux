@@ -5,6 +5,7 @@ import Header from './Header';
 //import Home from './Home';
 
 const mapStateToProps = state => ({
+  appLoaded: state.common.appLoaded,
   appName: state.common.appName,
   currentUser: state.common.currentUser,
   redirectTo: state.common.redirectTo
@@ -35,12 +36,24 @@ class App extends React.Component {
   }
 
   render() {
-    return (
+    if (this.props.appLoaded) {
+      return (
+        <div>
+          <Header 
+            appName={this.props.appName} 
+            currentUser={this.props.currentUser} />
+          {this.props.children}
+        </div>
+      );
+    } else {
+      return (
       <div>
-        <Header appName={this.props.appName} currentUser={this.props.currentUser} />
-        {this.props.children}
-      </div>
-    );
+        <Header 
+          appName={this.props.appName} 
+          currentUser={this.props.currentUser} />
+        </div>
+      );
+    }
   }
 }
 

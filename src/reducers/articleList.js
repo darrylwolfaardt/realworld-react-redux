@@ -4,7 +4,8 @@ export default (state = {}, action) => {
 			return {
 				...state,
 				articles: action.payload.articles,
-				articlesCount: action.payload.articlesCount
+				articlesCount: action.payload.articlesCount,
+				tab: action.tab
 			};
 		case 'HOME_PAGE_UNLOADED':
 			return {};
@@ -18,6 +19,13 @@ export default (state = {}, action) => {
 		case 'PROFILE_PAGE_UNLOADED':
 		case 'PROFILE_FAVORITES_PAGE_UNLOADED':
 			return {};
+		case 'CHANGE_TAB':
+			return {
+				...state,
+				articles: action.payload.articles,
+				articlesCount: action.payload.articlesCount,
+				tab: action.tab 
+			};
 	}
 
 	return state;

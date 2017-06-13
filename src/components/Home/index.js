@@ -7,17 +7,26 @@ import { connect } from 'react-redux';
 //const Promise = global.Promise;
 
 const mapStateToProps = state => ({
-	appName: state.common.appName
+	appName: state.common.appName,
+	token: state.common.token
+
 });
 
 const mapDispatchToProps = dispatch => ({
-	onLoad: payload =>
-		dispatch({ type: 'HOME_PAGE_LOADED', payload})
+	onLoad: (tab, payload) =>
+		dispatch({ type: 'HOME_PAGE_LOADED', tab, payload}),
+	onUnload: () =>
+		dispatch({ type: 'HOME_PAGE_ULOADED'})
 })
 
 class Home extends React.Component {
 	componentWillMount() {
-		this.props.onLoad(agent.Articles.all());
+		const tab = this.props.token ? 'feed' : 'all';
+		const articlesPromise = this.props.token ?
+			agent.Articles.feed() :
+			agent.Articles.all(); 
+
+		this.props.onLoad(tab, articlesPromise);
 	}
 
 	render() {
